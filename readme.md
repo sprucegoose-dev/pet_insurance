@@ -1,3 +1,7 @@
+## Prerequsites
+- Node v14+
+- MySQL 5.6
+
 ## Installation
 
 - Run `npm install`

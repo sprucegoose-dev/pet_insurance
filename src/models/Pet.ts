@@ -1,52 +1,60 @@
 import {
     IPetModel,
     IPetStatic,
-    IPetResource,
     IPetPayload,
+    IExtendedPetResource,
 } from '../types/Pet-types';
 import PetResource from '../resources/PetResource';
 import { CustomException, ERROR_NOT_FOUND } from '../services/ExceptionHandler';
+import UserResource from '../resources/UserResource';
+import InsuranceStatusResource from '../resources/InsuranceStatusResource';
+import PetTypeResource from '../resources/PetTypeResource';
+import ClaimResource from '../resources/ClaimResource';
+import { IExtendedClaimResource } from '../types/Claim-types';
+import ClaimStatusResource from '../resources/ClaimStatusResource';
 
 const Pet: IPetStatic = class Pet implements IPetModel {
 
-    static async create(payload: IPetPayload): Promise<IPetResource> {
+    static async create(payload: IPetPayload): Promise<IExtendedPetResource> {
         const {
             name,
             age,
             typeId,
-            userId,
-            statusId,
+            ownerId,
+            insuranceStatusId,
         } = payload;
 
-        const pet = await PetResource.create({
+        const pet = (await PetResource.create({
             name,
             age,
             typeId,
-            statusId,
-            userId,
-        });
+            insuranceStatusId,
+            ownerId,
+        })).toJSON();
 
-        return pet.toJSON();
+        return await this.getOne(pet.id);
     }
 
-    static async update(petId: number, payload: IPetPayload): Promise<void> {
+    static async update(petId: number, payload: IPetPayload): Promise<IExtendedPetResource> {
         const {
             name,
             age,
             typeId,
-            statusId,
+            insuranceStatusId,
         } = payload;
 
         await PetResource.update({
             name,
             age,
             typeId,
-            statusId,
+            insuranceStatusId,
         }, {
             where: {
                 id: petId,
             }
         });
+
+        return await this.getOne(petId);
     }
 
     static async delete(petId: number): Promise<void> {
@@ -57,11 +65,25 @@ const Pet: IPetStatic = class Pet implements IPetModel {
         });
     }
 
-    static async getOne(petId: number): Promise<IPetResource> {
+    static async getOne(petId: number): Promise<IExtendedPetResource> {
         const pet = await PetResource.findOne({
             where: {
                 id: petId,
-            }
+            },
+            include: [
+                {
+                    model: PetTypeResource,
+                    as: 'type',
+                },
+                {
+                    model: InsuranceStatusResource,
+                    as: 'insuranceStatus',
+                },
+                {
+                    model: UserResource,
+                    as: 'owner',
+                },
+            ],
         });
 
         if (!pet) {
@@ -69,6 +91,22 @@ const Pet: IPetStatic = class Pet implements IPetModel {
         }
 
         return pet.toJSON();
+    }
+
+    static async getClaims(petId: number): Promise<IExtendedClaimResource[]> {
+        const claims = await ClaimResource.findAll({
+            where: {
+                petId,
+            },
+            include: [
+                {
+                    model: ClaimStatusResource,
+                    as: 'status',
+                },
+            ],
+        });
+
+        return claims.map(claim => claim.toJSON());
     }
 };
 

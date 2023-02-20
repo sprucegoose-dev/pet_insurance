@@ -1,3 +1,4 @@
+import ClaimsController from './controllers/ClaimsController';
 import PetsController from './controllers/PetsController';
 import UsersController from './controllers/UsersController';
 
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post('/pet', PetsController.create);
 app.get('/pet/:petId', PetsController.getOne);
-app.get('/pet/:petId/claims');
+app.get('/pet/:petId/claims', PetsController.getClaims);
 app.patch('/pet/:petId', PetsController.update);
 app.delete('/pet/:petId', PetsController.delete)
 
@@ -22,7 +23,12 @@ app.get('/user', UsersController.getAll);
 app.get('/user/:userId', UsersController.getOne);
 app.get('/user/:userId/pets', UsersController.getPets);
 app.patch('/user/:userId', UsersController.update);
-app.delete('/user/:userId', UsersController.delete)
+app.delete('/user/:userId', UsersController.delete);
+
+app.post('/claim', ClaimsController.create);
+app.get('/claim/:claimId', ClaimsController.getOne);
+app.patch('/claim/:claimId', ClaimsController.update);
+app.delete('/claim/:claimId', ClaimsController.delete)
 
 http.listen(3000, () => {
     console.log('listening on *:3000');

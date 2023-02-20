@@ -1,11 +1,15 @@
 import { Request, Response } from 'express';
+import { IExtendedClaimResource } from './Claim-types';
+import { IInsuranceStatusResource } from './InsuranceStatus-types';
+import { IPetTypeResource } from './PetType-types';
+import { IUserResource } from './User-types';
 
 export interface IPetPayload {
     age: number;
+    insuranceStatusId: number;
     name: string;
-    statusId: number;
     typeId: number;
-    userId: number;
+    ownerId: number;
 }
 
 export interface ICreatePetRequest extends Request {
@@ -30,21 +34,34 @@ export interface IGetPetRequest extends Request {
     }
 }
 
+export interface IGetClaimRequest extends Request {
+    params: {
+        petId: string;
+    }
+}
+
 export interface IPetResource {
     age: number;
     createdAt: string;
+    insuranceStatusId: number;
     name: string;
-    statusId: number;
     typeId: number;
     updatedAt: string;
     userId: number;
 }
 
+export interface IExtendedPetResource extends IPetResource {
+    owner: IUserResource;
+    type: IPetTypeResource;
+    InsuranceStatus: IInsuranceStatusResource;
+}
+
 export interface IPetStatic {
-    create: (payload: IPetPayload) => Promise<IPetResource>;
-    update: (petId: number, payload: IPetPayload) => Promise<void>;
+    create: (payload: IPetPayload) => Promise<IExtendedPetResource>;
     delete: (petId: number) => Promise<void>;
-    getOne: (petId: number) => Promise<IPetResource>;
+    getClaims: (petId: number) => Promise<IExtendedClaimResource[]>;
+    getOne: (petId: number) => Promise<IExtendedPetResource>;
+    update: (petId: number, payload: IPetPayload) => Promise<IExtendedPetResource>;
 }
 
 export interface IPetModel {
@@ -52,7 +69,8 @@ export interface IPetModel {
 
 export interface IPetsController {
     create: (req: ICreatePetRequest, res: Response) => Promise<void>;
-    update: (req: IUpdatePetRequest, res: Response) => Promise<void>;
     delete: (req: IDeletePetRequest, res: Response) => Promise<void>;
+    getClaims: (req: IGetClaimRequest, res: Response) => Promise<void>;
+    update: (req: IUpdatePetRequest, res: Response) => Promise<void>;
 }
 

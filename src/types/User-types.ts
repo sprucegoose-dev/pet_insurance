@@ -42,7 +42,7 @@ export interface IUserResource {
     firstName: number;
     id: number;
     lastName: string;
-    password: number;
+    password?: number;
     updatedAt: string;
 }
 

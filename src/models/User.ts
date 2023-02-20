@@ -8,15 +8,15 @@ import {
 } from '../types/User-types';
 import UserResource from '../resources/UserResource';
 import { CustomException, ERROR_NOT_FOUND } from '../services/ExceptionHandler';
-import { IPetResource } from '../types/Pet-types';
+import { IExtendedPetResource } from '../types/Pet-types';
 import PetResource from '../resources/PetResource';
+import PetTypeResource from '../resources/PetTypeResource';
+import InsuranceStatusResource from '../resources/InsuranceStatusResource';
 
 
 const User: IUserStatic = class User implements IUserModel {
 
     static async create(payload: IUserPayload): Promise<IUserResource> {
-        console.log('payload', payload);
-
         const {
             firstName,
             lastName,
@@ -82,11 +82,25 @@ const User: IUserStatic = class User implements IUserModel {
         return users.map(user => user.toJSON());
     }
 
-    static async getPets(ownerId: number): Promise<IPetResource[]> {
+    static async getPets(ownerId: number): Promise<IExtendedPetResource[]> {
         const pets = await PetResource.findAll({
             where: {
                 ownerId,
-            }
+            },
+            include: [
+                {
+                    model: PetTypeResource,
+                    as: 'type',
+                },
+                {
+                    model: InsuranceStatusResource,
+                    as: 'insuranceStatus',
+                },
+                {
+                    model: UserResource,
+                    as: 'owner',
+                },
+            ]
         });
 
         return pets.map(pet => pet.toJSON());

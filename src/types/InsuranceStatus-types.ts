@@ -1,12 +1,12 @@
-export enum InsuranceStatus {
-    FULLY_COVERED = 'fully_covered',
-    ACCIDENT_ONLY = 'accident_only',
-    NO_COVER = 'no_cover',
+export enum ClaimStatus {
+    PENDING = 'pending',
+    APPROVED = 'approved',
+    REJECTED = 'rejected',
 }
 
 export interface IInsuranceStatusResource {
     id: number;
-    type: InsuranceStatus;
+    type: ClaimStatus;
     label: string;
 }
 

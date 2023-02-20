@@ -1,11 +1,13 @@
 import { DataTypes, Model } from 'sequelize';
 
 import { sequelize } from '../../database/connection';
+import ClaimStatusResource from './ClaimStatusResource';
+
 import PetResource from './PetResource';
 
-export default class UserResource extends Model {}
+export default class ClaimResource extends Model {}
 
-UserResource.init({
+ClaimResource.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -21,9 +23,9 @@ UserResource.init({
     },
     statusId: {
         type: DataTypes.INTEGER,
-        field: 'pet_id',
+        field: 'status_id',
         references: {
-            model: PetResource,
+            model: ClaimStatusResource,
             key: 'id',
         },
     },
@@ -45,7 +47,12 @@ UserResource.init({
     },
 }, {
     sequelize,
-    modelName: 'UserResource',
-    tableName: 'users',
+    modelName: 'ClaimResource',
+    tableName: 'claims',
     timestamps: true,
+});
+
+ClaimResource.belongsTo(ClaimStatusResource, {
+    foreignKey: 'statusId',
+    as: 'status',
 });

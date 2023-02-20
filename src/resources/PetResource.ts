@@ -73,13 +73,13 @@ PetResource.belongsTo(InsuranceStatusResource, {
 });
 
 PetResource.belongsTo(UserResource, {
-    foreignKey: 'userId',
+    foreignKey: 'ownerId',
     as: 'owner',
 });
 
 UserResource.hasMany(PetResource, {
     foreignKey: {
-        name: 'userId',
+        name: 'ownerId',
         field: 'id',
     },
     as: 'pets',

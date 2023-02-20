@@ -10,7 +10,10 @@ ClaimStatusResource.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    status: {
+    type: {
+        type: DataTypes.STRING,
+    },
+    label: {
         type: DataTypes.STRING,
     },
 }, {

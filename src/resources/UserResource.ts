@@ -41,4 +41,7 @@ UserResource.init({
     modelName: 'UserResource',
     tableName: 'users',
     timestamps: true,
+    defaultScope: {
+        attributes: { exclude: ['password'] }
+    }
 });

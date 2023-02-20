@@ -33,6 +33,11 @@ class PetsController implements IPetsController {
         res.send(response);
     }
 
+    async getClaims(req: IGetPetRequest, res: Response): Promise<void> {
+        const response = await Pet.getClaims(parseInt(req.params.petId));
+        res.send(response);
+    }
+
 }
 
 export default new PetsController;
