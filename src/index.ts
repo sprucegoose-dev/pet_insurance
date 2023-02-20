@@ -1,3 +1,6 @@
+import PetsController from './controllers/PetsController';
+import UsersController from './controllers/UsersController';
+
 const express = require('express');
 const app = require('express')();
 const http = require('http').createServer(app);
@@ -8,13 +11,19 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/pet');
+app.post('/pet', PetsController.create);
+app.get('/pet/:petId', PetsController.getOne);
+app.get('/pet/:petId/claims');
+app.patch('/pet/:petId', PetsController.update);
+app.delete('/pet/:petId', PetsController.delete)
 
-app.patch('/pet/:id');
+app.post('/user', UsersController.create);
+app.get('/user', UsersController.getAll);
+app.get('/user/:userId', UsersController.getOne);
+app.get('/user/:userId/pets', UsersController.getPets);
+app.patch('/user/:userId', UsersController.update);
+app.delete('/user/:userId', UsersController.delete)
 
-app.get('/pet/:id');
-
-app.get('/pet/:id/claims');
-
-app.get('/pets');
-
+http.listen(3000, () => {
+    console.log('listening on *:3000');
+});

@@ -1,11 +1,32 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
+
+export interface IPetPayload {
+    age: number;
+    name: string;
+    statusId: number;
+    typeId: number;
+    userId: number;
+}
 
 export interface ICreatePetRequest extends Request {
-    body: {
-        age: number;
-        name: string;
-        statusId?: number;
-        typeId: number;
+    body: IPetPayload;
+}
+
+export interface IUpdatePetRequest extends ICreatePetRequest {
+    params: {
+        petId: string;
+    }
+}
+
+export interface IDeletePetRequest extends Request {
+    params: {
+        petId: string;
+    }
+}
+
+export interface IGetPetRequest extends Request {
+    params: {
+        petId: string;
     }
 }
 
@@ -19,7 +40,19 @@ export interface IPetResource {
     userId: number;
 }
 
+export interface IPetStatic {
+    create: (payload: IPetPayload) => Promise<IPetResource>;
+    update: (petId: number, payload: IPetPayload) => Promise<void>;
+    delete: (petId: number) => Promise<void>;
+    getOne: (petId: number) => Promise<IPetResource>;
+}
+
 export interface IPetModel {
-    create: (userId: number, options: ICreatePetRequest) => Promise<IPetResource>;
+}
+
+export interface IPetsController {
+    create: (req: ICreatePetRequest, res: Response) => Promise<void>;
+    update: (req: IUpdatePetRequest, res: Response) => Promise<void>;
+    delete: (req: IDeletePetRequest, res: Response) => Promise<void>;
 }
 

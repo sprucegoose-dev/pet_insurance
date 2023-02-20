@@ -2,23 +2,35 @@
   "name": "pet-insurance",
   "version": "1.0.0",
   "description": "A project for managing your pet insurance",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon -r dotenv/config ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "sequelize db:migrate",
+    "migrate:rollback": "sequelize db:migrate:undo",
+    "migrate:rollback:all": "sequelize db:migrate:undo:all",
+    "seed": "sequelize db:seed:all",
+    "seed:rollback": "sequelize db:seed:undo",
+    "seed:rollback:all": "sequelize db:seed:all"
   },
   "author": "Morgan Polak",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "^18.14.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "nodemon": "^2.0.20",
     "sequelize-cli": "^6.6.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
   "dependencies": {
     "@types/express": "^4.17.17",
     "@types/sequelize": "^4.28.14",
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
+    "mysql2": "^3.1.2",
     "sequelize": "^6.28.0"
   }
 }

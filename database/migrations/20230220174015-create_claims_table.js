@@ -18,7 +18,7 @@ module.exports = {
             pet_id: {
                 ...foreignKey,
                 references: {
-                    model: 'pet_statuses',
+                    model: 'pets',
                     key: 'id',
                 },
             },

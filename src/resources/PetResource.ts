@@ -1,6 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
 
 import { sequelize } from '../../database/connection';
+import InsuranceStatusResource from './InsuranceStatusResource';
+import PetTypeResource from './PetTypeResource';
 import UserResource from './UserResource';
 
 export default class PetResource extends Model {}
@@ -11,9 +13,33 @@ PetResource.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    userId: {
+    name: {
+        type: DataTypes.STRING,
+        field: 'name',
+    },
+    age: {
         type: DataTypes.INTEGER,
-        field: 'user_id',
+        field: 'age',
+    },
+    typeId: {
+        type: DataTypes.INTEGER,
+        field: 'type_id',
+        references: {
+            model: PetTypeResource,
+            key: 'id',
+        },
+    },
+    insuranceStatusId: {
+        type: DataTypes.INTEGER,
+        field: 'insurance_status_id',
+        references: {
+            model: InsuranceStatusResource,
+            key: 'id',
+        },
+    },
+    ownerId: {
+        type: DataTypes.INTEGER,
+        field: 'owner_id',
         references: {
             model: UserResource,
             key: 'id',
@@ -35,3 +61,27 @@ PetResource.init({
     tableName: 'pets',
     timestamps: true,
 });
+
+PetResource.belongsTo(PetTypeResource, {
+    foreignKey: 'typeId',
+    as: 'type',
+});
+
+PetResource.belongsTo(InsuranceStatusResource, {
+    foreignKey: 'insuranceStatusId',
+    as: 'insuranceStatus',
+});
+
+PetResource.belongsTo(UserResource, {
+    foreignKey: 'userId',
+    as: 'owner',
+});
+
+UserResource.hasMany(PetResource, {
+    foreignKey: {
+        name: 'userId',
+        field: 'id',
+    },
+    as: 'pets',
+});
+

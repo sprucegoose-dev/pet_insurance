@@ -8,7 +8,12 @@ module.exports = {
                 primaryKey: true,
                 autoIncrement: true
             },
-            status:  {
+            type:  {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            label:  {
                 type: Sequelize.STRING,
                 allowNull: false,
                 unique: true,

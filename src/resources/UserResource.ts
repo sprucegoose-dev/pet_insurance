@@ -10,9 +10,21 @@ UserResource.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    name: {
+    firstName: {
         type: DataTypes.STRING,
-        field: 'name',
+        field: 'first_name',
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        field: 'last_name',
+    },
+    email: {
+        type: DataTypes.STRING,
+        field: 'email',
+    },
+    password: {
+        type: DataTypes.STRING,
+        field: 'password',
     },
     createdAt: {
         type: DataTypes.DATE,

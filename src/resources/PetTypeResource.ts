@@ -2,9 +2,9 @@ import { DataTypes, Model } from 'sequelize';
 
 import { sequelize } from '../../database/connection';
 
-export default class InsuranceStatusResource extends Model {}
+export default class PetTypeResource extends Model {}
 
-InsuranceStatusResource.init({
+PetTypeResource.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

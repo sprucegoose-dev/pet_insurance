@@ -1,5 +1,3 @@
-import { IDatabaseEnvVars } from './database-types';
-
 require('dotenv').config();
 
 const {
@@ -7,7 +5,7 @@ const {
     DB_USER,
     DB_PASS,
     DB_HOST,
-} = process.env  as unknown as IDatabaseEnvVars;
+} = process.env;
 
 module.exports = {
     development: {

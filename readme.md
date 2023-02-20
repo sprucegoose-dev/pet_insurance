@@ -29,14 +29,6 @@ Rolls back all migrations.
 
 Runs all seeds to populate the database with information.
 
-### `npm run seed:rollback`
-
-Rolls back the last seed.
-
-### `npm run seed:rollback:all`
-
-Rolls back all seeds.
-
 ### `sequelize db:seed --seed [seed-name]` 
 
 Runs a specific seed
