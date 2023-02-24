@@ -46,7 +46,7 @@ const User: IUserStatic = class User implements IUserModel {
             firstName,
             lastName,
             email,
-            password,
+            password: await bcrypt.hash(password, 10),
         }, {
             where: {
                 id: userId,
