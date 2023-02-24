@@ -1,8 +1,8 @@
-
+import { ClaimStatus } from './InsuranceStatus-types';
 
 export interface IClaimStatusResource {
     id: number;
-    type: ClaimStat;
+    type: ClaimStatus;
     label: string;
 }
 
