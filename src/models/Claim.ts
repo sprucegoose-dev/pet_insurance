@@ -2,7 +2,7 @@ import {
     IClaimModel,
     IClaimStatic,
     IClaimPayload,
-    IExtendedClaimResource,
+    IClaimResource,
 } from '../types/Claim-types';
 import ClaimResource from '../resources/ClaimResource';
 import { CustomException, ERROR_NOT_FOUND } from '../services/ExceptionHandler';
@@ -10,7 +10,7 @@ import ClaimStatusResource from '../resources/ClaimStatusResource';
 
 const Claim: IClaimStatic = class Claim implements IClaimModel {
 
-    static async create(payload: IClaimPayload): Promise<IExtendedClaimResource> {
+    static async create(payload: IClaimPayload): Promise<IClaimResource> {
         const {
             cost,
             description,
@@ -28,7 +28,7 @@ const Claim: IClaimStatic = class Claim implements IClaimModel {
         return await this.getOne(claim.id);
     }
 
-    static async update(claimId: number, payload: IClaimPayload): Promise<IExtendedClaimResource> {
+    static async update(claimId: number, payload: IClaimPayload): Promise<IClaimResource> {
         const {
             cost,
             description,
@@ -58,7 +58,7 @@ const Claim: IClaimStatic = class Claim implements IClaimModel {
         });
     }
 
-    static async getOne(claimId: number): Promise<IExtendedClaimResource> {
+    static async getOne(claimId: number): Promise<IClaimResource> {
         const claim = await ClaimResource.findOne({
             where: {
                 id: claimId,

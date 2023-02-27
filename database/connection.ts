@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Dialect } from 'sequelize';
 
 interface IDatabaseEnvVars {
     NODE_ENV: string;
@@ -16,9 +16,9 @@ const {
     DB_HOST
 } = process.env as unknown as IDatabaseEnvVars;
 
-export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
+const options = {
     host: DB_HOST,
-    dialect: 'mysql',
+    dialect: 'mysql' as Dialect,
     logging: NODE_ENV === 'development' ? console.log : false,
     pool: {
         max: 5,
@@ -29,4 +29,12 @@ export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
         charset: 'utf8',
         collate: 'utf8_general_ci',
     },
-});
+};
+
+export const sequelize = NODE_ENV === 'test' ?
+    new Sequelize('sqlite::memory:', {
+        logging: false,
+    }) :
+    new Sequelize(DB_NAME, DB_USER, DB_PASS, options);
+
+

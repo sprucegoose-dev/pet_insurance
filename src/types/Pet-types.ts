@@ -43,6 +43,7 @@ export interface IGetClaimRequest extends Request {
 export interface IPetResource {
     age: number;
     createdAt: string;
+    id: number;
     insuranceStatusId: number;
     name: string;
     typeId: number;

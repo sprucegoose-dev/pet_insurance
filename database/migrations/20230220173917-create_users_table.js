@@ -2,6 +2,7 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
+
         const schema = {
             id: {
                 type: Sequelize.INTEGER,

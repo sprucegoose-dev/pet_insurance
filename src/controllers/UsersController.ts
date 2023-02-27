@@ -35,8 +35,6 @@ class UsersController implements IUsersController {
     }
 
     async getPets(req: IGetPetsRequest, res: Response): Promise<void> {
-        console.log(req.params);
-
         const response = await User.getPets(parseInt(req.params.userId));
         res.send(response);
     }

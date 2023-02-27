@@ -1,11 +1,12 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Optional } from 'sequelize';
 
 import { sequelize } from '../../database/connection';
 import ClaimStatusResource from './ClaimStatusResource';
+import { IClaimResource } from '../types/Claim-types';
 
 import PetResource from './PetResource';
 
-export default class ClaimResource extends Model {}
+export default class ClaimResource extends Model<IClaimResource, Optional<IClaimResource, 'id' | 'createdAt' | 'updatedAt'>>{}
 
 ClaimResource.init({
     id: {

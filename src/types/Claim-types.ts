@@ -38,17 +38,14 @@ export interface IClaimResource {
     petId: number;
     statusId: number;
     updatedAt: string;
-}
-
-export interface IExtendedClaimResource extends IClaimResource {
-    status: IClaimStatusResource;
+    status?: IClaimStatusResource;
 }
 
 export interface IClaimStatic {
-    create: (payload: IClaimPayload) => Promise<IExtendedClaimResource>;
-    update: (claimId: number, payload: IClaimPayload) => Promise<IExtendedClaimResource>;
+    create: (payload: IClaimPayload) => Promise<IClaimResource>;
+    update: (claimId: number, payload: IClaimPayload) => Promise<IClaimResource>;
     delete: (claimId: number) => Promise<void>;
-    getOne: (claimId: number) => Promise<IExtendedClaimResource>;
+    getOne: (claimId: number) => Promise<IClaimResource>;
 }
 
 export interface IClaimModel {
