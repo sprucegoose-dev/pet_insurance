@@ -38,10 +38,10 @@ describe('Claim', () => {
 
             const claim = await Claim.create(data);
 
-            expect(claim.cost).toBe(100);
-            expect(claim.description).toBe('New pet insurance');
-            expect(claim.statusId).toBe(1);
-            expect(claim.petId).toBe(1);
+            expect(claim.cost).toBe(data.cost);
+            expect(claim.description).toBe(data.description);
+            expect(claim.statusId).toBe(data.statusId);
+            expect(claim.petId).toBe(data.petId);
             expect(Date.parse((claim.createdAt))).not.toBeNaN();
             expect(Date.parse((claim.updatedAt))).not.toBeNaN();
         });
@@ -60,10 +60,10 @@ describe('Claim', () => {
 
             const claim = await Claim.update(1, data);
 
-            expect(claim.cost).toBe(150);
-            expect(claim.description).toBe('New description');
-            expect(claim.statusId).toBe(2);
-            expect(claim.petId).toBe(1);
+            expect(claim.cost).toBe(data.cost);
+            expect(claim.description).toBe(data.description);
+            expect(claim.statusId).toBe(data.statusId);
+            expect(claim.petId).toBe(data.petId);
         });
 
     });
@@ -79,7 +79,7 @@ describe('Claim', () => {
 
     describe('delete', () => {
 
-        it('should retrieve an existing claim from the database', async () => {
+        it('should delete a claim from the database', async () => {
             await Claim.delete(1);
 
             const claim = await ClaimResource.findOne({

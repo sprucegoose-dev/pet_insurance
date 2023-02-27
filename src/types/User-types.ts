@@ -42,14 +42,14 @@ export interface IUserResource {
     firstName: number;
     id: number;
     lastName: string;
-    password?: number;
+    password: string;
     updatedAt: string;
 }
 
 export interface IUserStatic {
     create: (payload: IUserPayload) => Promise<IUserResource>;
-    update: (petId: number, payload: IUserPayload) => Promise<void>;
-    delete: (petId: number) => Promise<void>;
+    update: (userId: number, payload: IUserPayload) => Promise<IUserResource>;
+    delete: (userId: number) => Promise<void>;
     getPets: (userId: number) => Promise<IPetResource[]>;
     getOne: (userId: number) => Promise<IUserResource>;
     getAll: () => Promise<IUserResource[]>;

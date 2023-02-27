@@ -2,7 +2,7 @@ import {
     IPetModel,
     IPetStatic,
     IPetPayload,
-    IExtendedPetResource,
+    IPetResource,
 } from '../types/Pet-types';
 import PetResource from '../resources/PetResource';
 import { CustomException, ERROR_NOT_FOUND } from '../services/ExceptionHandler';
@@ -10,12 +10,12 @@ import UserResource from '../resources/UserResource';
 import InsuranceStatusResource from '../resources/InsuranceStatusResource';
 import PetTypeResource from '../resources/PetTypeResource';
 import ClaimResource from '../resources/ClaimResource';
-import { IExtendedClaimResource } from '../types/Claim-types';
+import { IClaimResource } from '../types/Claim-types';
 import ClaimStatusResource from '../resources/ClaimStatusResource';
 
 const Pet: IPetStatic = class Pet implements IPetModel {
 
-    static async create(payload: IPetPayload): Promise<IExtendedPetResource> {
+    static async create(payload: IPetPayload): Promise<IPetResource> {
         const {
             name,
             age,
@@ -35,7 +35,7 @@ const Pet: IPetStatic = class Pet implements IPetModel {
         return await this.getOne(pet.id);
     }
 
-    static async update(petId: number, payload: IPetPayload): Promise<IExtendedPetResource> {
+    static async update(petId: number, payload: IPetPayload): Promise<IPetResource> {
         const {
             name,
             age,
@@ -65,7 +65,7 @@ const Pet: IPetStatic = class Pet implements IPetModel {
         });
     }
 
-    static async getOne(petId: number): Promise<IExtendedPetResource> {
+    static async getOne(petId: number): Promise<IPetResource> {
         const pet = await PetResource.findOne({
             where: {
                 id: petId,
@@ -93,7 +93,7 @@ const Pet: IPetStatic = class Pet implements IPetModel {
         return pet.toJSON();
     }
 
-    static async getClaims(petId: number): Promise<IExtendedClaimResource[]> {
+    static async getClaims(petId: number): Promise<IClaimResource[]> {
         const claims = await ClaimResource.findAll({
             where: {
                 petId,

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IExtendedClaimResource } from './Claim-types';
+import { IClaimResource } from './Claim-types';
 import { IInsuranceStatusResource } from './InsuranceStatus-types';
 import { IPetTypeResource } from './PetType-types';
 import { IUserResource } from './User-types';
@@ -48,21 +48,18 @@ export interface IPetResource {
     name: string;
     typeId: number;
     updatedAt: string;
-    userId: number;
-}
-
-export interface IExtendedPetResource extends IPetResource {
-    owner: IUserResource;
-    type: IPetTypeResource;
-    InsuranceStatus: IInsuranceStatusResource;
+    ownerId: number;
+    owner?: IUserResource;
+    type?: IPetTypeResource;
+    insuranceStatus?: IInsuranceStatusResource;
 }
 
 export interface IPetStatic {
-    create: (payload: IPetPayload) => Promise<IExtendedPetResource>;
+    create: (payload: IPetPayload) => Promise<IPetResource>;
     delete: (petId: number) => Promise<void>;
-    getClaims: (petId: number) => Promise<IExtendedClaimResource[]>;
-    getOne: (petId: number) => Promise<IExtendedPetResource>;
-    update: (petId: number, payload: IPetPayload) => Promise<IExtendedPetResource>;
+    getClaims: (petId: number) => Promise<IClaimResource[]>;
+    getOne: (petId: number) => Promise<IPetResource>;
+    update: (petId: number, payload: IPetPayload) => Promise<IPetResource>;
 }
 
 export interface IPetModel {

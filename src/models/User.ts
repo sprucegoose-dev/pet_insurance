@@ -8,11 +8,10 @@ import {
 } from '../types/User-types';
 import UserResource from '../resources/UserResource';
 import { CustomException, ERROR_NOT_FOUND } from '../services/ExceptionHandler';
-import { IExtendedPetResource } from '../types/Pet-types';
 import PetResource from '../resources/PetResource';
 import PetTypeResource from '../resources/PetTypeResource';
 import InsuranceStatusResource from '../resources/InsuranceStatusResource';
-
+import { IPetResource } from '../types/Pet-types';
 
 const User: IUserStatic = class User implements IUserModel {
 
@@ -34,7 +33,7 @@ const User: IUserStatic = class User implements IUserModel {
         return user.toJSON();
     }
 
-    static async update(userId: number, payload: IUserPayload): Promise<void> {
+    static async update(userId: number, payload: IUserPayload): Promise<IUserResource> {
         const {
             firstName,
             lastName,
@@ -52,6 +51,8 @@ const User: IUserStatic = class User implements IUserModel {
                 id: userId,
             }
         });
+
+        return await this.getOne(userId);
     }
 
     static async delete(userId: number): Promise<void> {
@@ -82,7 +83,7 @@ const User: IUserStatic = class User implements IUserModel {
         return users.map(user => user.toJSON());
     }
 
-    static async getPets(ownerId: number): Promise<IExtendedPetResource[]> {
+    static async getPets(ownerId: number): Promise<IPetResource[]> {
         const pets = await PetResource.findAll({
             where: {
                 ownerId,

@@ -15,7 +15,11 @@
 
 ### `npm start`
 
-Runs the app in the development mode. This will start a server on [http://localhost:3000](http://localhost:3000).
+Runs the app in development mode. This will start a server on [http://localhost:3000](http://localhost:3000).
+
+### `npm test`
+
+Runs al the tests.
 
 ### `npm run migrate`
 
