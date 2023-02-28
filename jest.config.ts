@@ -6,7 +6,7 @@ const config: Config.InitialOptions = {
     rootDir: path.resolve(__dirname),
     testRegex: '(test)\\.[jt]sx?$',
     testEnvironment: 'node',
-    setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     preset: 'ts-jest',
     transform: {
         "\\.[jt]sx?$": "babel-jest",
