@@ -1,8 +1,0 @@
-[
-  "20230220173917-create_users_table.js",
-  "20230220173919-create_pet_types_table.js",
-  "20230220173923-create_insurance_statuses_table.js",
-  "20230220173929-create_pets_table.js",
-  "20230220174010-create_claim_statuses_table.js",
-  "20230220174015-create_claims_table.js"
-]

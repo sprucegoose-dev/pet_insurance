@@ -20,6 +20,6 @@ module.exports = {
         return queryInterface.bulkInsert('pet_types', petTypes);
     },
     down: (queryInterface) => {
-        return queryInterface.delete('pet_types', null, {});
+        return queryInterface.bulkDelete('pet_types', null, {});
     }
 };
