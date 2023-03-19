@@ -31,7 +31,7 @@ describe('User', () => {
 
     describe('update', () => {
 
-        it('should store a new user in the database', async () => {
+        it('should update an existing user in the database', async () => {
             const data = {
                 firstName: 'Lloyd',
                 lastName: 'Christmas ',

@@ -22,7 +22,7 @@ describe('Pet', () => {
 
     describe('create', () => {
 
-        it('should store a new Pet in the database', async () => {
+        it('should store a new pet in the database', async () => {
             const data = {
                 age: 3,
                 insuranceStatusId: 1,
@@ -46,7 +46,7 @@ describe('Pet', () => {
 
     describe('update', () => {
 
-        it('should store a new User in the database', async () => {
+        it('should update an existing pet in the database', async () => {
             const data = {
                 age: 3,
                 insuranceStatusId: 2,
